@@ -2,6 +2,12 @@ package com.example.Shing_practice.student;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.Period;
+
+/*
+* The @Entity annotation specifies that the class is an entity and is mapped to a database table.
+* The @Table annotation specifies the name of the database table to be used for mapping.
+* */
 
 @Entity
 @Table
@@ -20,24 +26,23 @@ public class Student {
     private Long id;
     private String name;
     private LocalDate dob;
+    @Transient
     private Integer age;
     private String email;
 
     public Student(){ }
 
     public Student(Long id, String name, LocalDate dob,
-                   Integer age, String email) {
+                    String email) {
         this.id = id;
         this.name = name;
         this.dob = dob;
-        this.age = age;
         this.email = email;
     }
 
-    public Student(String name, LocalDate dob, Integer age, String email) {
+    public Student(String name, LocalDate dob, String email) {
         this.name = name;
         this.dob = dob;
-        this.age = age;
         this.email = email;
     }
 
@@ -77,7 +82,7 @@ public class Student {
     }
 
     public Integer getAge() {
-        return age;
+        return Period.between(this.dob, LocalDate.now()).getYears();
     }
 
     public void setAge(Integer age) {
